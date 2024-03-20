@@ -1,12 +1,4 @@
-package trivia;
-
-import trivia.questions.Category;
-import trivia.questions.PopQuestion;
-import trivia.questions.Question;
-import trivia.questions.QuestionDeck;
-import trivia.questions.RockQuestion;
-import trivia.questions.ScienceQuestion;
-import trivia.questions.SportsQuestion;
+package trivia.question;
 
 public class QuestionManager {
     private final QuestionDeck<PopQuestion> popQuestions = new QuestionDeck<>();

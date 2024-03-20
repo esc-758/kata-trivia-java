@@ -1,4 +1,4 @@
-package trivia.questions;
+package trivia.question;
 
 import java.util.Deque;
 import java.util.LinkedList;

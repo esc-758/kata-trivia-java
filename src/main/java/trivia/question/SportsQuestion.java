@@ -1,4 +1,4 @@
-package trivia.questions;
+package trivia.question;
 
 public class SportsQuestion extends Question {
     public SportsQuestion(String text) {

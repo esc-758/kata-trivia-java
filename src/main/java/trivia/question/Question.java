@@ -1,4 +1,4 @@
-package trivia.questions;
+package trivia.question;
 
 public abstract class Question {
     private final String text;
