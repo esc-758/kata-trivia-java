@@ -1,6 +1,6 @@
 package trivia.player;
 
-import static trivia.GameBetter.TOTAL_PLACES_ON_BOARD;
+import static trivia.GamesRules.TOTAL_PLACES_ON_BOARD;
 
 public final class Player {
     private final String name;

@@ -5,7 +5,6 @@ import trivia.question.QuestionManager;
 
 // REFACTOR ME
 public class GameBetter implements IGame {
-   public static final int TOTAL_PLACES_ON_BOARD = 12;
 
    private final PlayerManager playerManager = new PlayerManager();
    private final QuestionManager questionManager = new QuestionManager();
@@ -24,7 +23,7 @@ public class GameBetter implements IGame {
          return;
       }
 
-       if (playerCanGetOutOfPenaltyBox(roll)) {
+       if (GamesRules.canPlayerGetOutOfPenaltyBox(roll)) {
           playerManager.takePlayerOutOfPenaltyBox();
           movePlayerForwardAndAskQuestion(roll);
        } else {
@@ -32,10 +31,6 @@ public class GameBetter implements IGame {
        }
    }
 
-   private static boolean playerCanGetOutOfPenaltyBox(int roll) {
-      return roll % 2 != 0;
-   }
-   
    private void movePlayerForwardAndAskQuestion(int roll) {
       playerManager.movePlayerForward(roll);
       questionManager.askQuestion(playerManager.playerPlace());
@@ -52,7 +47,7 @@ public class GameBetter implements IGame {
 
    private boolean playTurn() {
       rewardCorrectAnswer();
-      boolean winner = didPlayerWin();
+      boolean winner = GamesRules.didPlayerWin(playerManager.playerCoins());
       playerManager.goToNextPlayerTurn();
 
       return winner;
@@ -69,9 +64,5 @@ public class GameBetter implements IGame {
       playerManager.goToNextPlayerTurn();
 
       return true;
-   }
-
-   private boolean didPlayerWin() {
-      return playerManager.playerCoins() != 6;
    }
 }
