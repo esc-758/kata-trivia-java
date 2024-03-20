@@ -1,7 +1,7 @@
-package trivia;
+package trivia.questions;
 
 public class PopQuestion extends Question {
-    protected PopQuestion(String text) {
+    public PopQuestion(String text) {
         super(text);
     }
 }

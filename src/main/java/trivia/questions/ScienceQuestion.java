@@ -1,7 +1,7 @@
-package trivia;
+package trivia.questions;
 
 public class ScienceQuestion extends Question {
-    protected ScienceQuestion(String text) {
+    public ScienceQuestion(String text) {
         super(text);
     }
 }

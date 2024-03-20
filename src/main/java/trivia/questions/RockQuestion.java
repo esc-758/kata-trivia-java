@@ -1,7 +1,7 @@
-package trivia;
+package trivia.questions;
 
 public class RockQuestion extends Question {
-    protected RockQuestion(String text) {
+    public RockQuestion(String text) {
         super(text);
     }
 }

@@ -1,4 +1,4 @@
-package trivia;
+package trivia.players;
 
 import static trivia.GameBetter.TOTAL_PLACES_ON_BOARD;
 

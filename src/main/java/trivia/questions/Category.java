@@ -1,4 +1,4 @@
-package trivia;
+package trivia.questions;
 
 public enum Category {
     POP("Pop"),

@@ -3,6 +3,14 @@ package trivia;
 import java.util.ArrayList;
 import java.util.List;
 
+import trivia.players.Player;
+import trivia.questions.Category;
+import trivia.questions.PopQuestion;
+import trivia.questions.QuestionDeck;
+import trivia.questions.RockQuestion;
+import trivia.questions.ScienceQuestion;
+import trivia.questions.SportsQuestion;
+
 // REFACTOR ME
 public class GameBetter implements IGame {
    public static final int TOTAL_PLACES_ON_BOARD = 12;
@@ -50,28 +58,28 @@ public class GameBetter implements IGame {
       System.out.println("They have rolled a " + roll);
 
       if (!currentPlayer.isInPenaltyBox()) {
-         moveForwardAndAskQuestion(roll);
+         movePlayerForwardAndAskQuestion(roll);
          return;
       }
 
-       if (canGetOutOfPenaltyBox(roll)) {
-           leavePenaltyBox();
-           moveForwardAndAskQuestion(roll);
+       if (playerCanGetOutOfPenaltyBox(roll)) {
+           takePlayerOutOfPenaltyBox();
+           movePlayerForwardAndAskQuestion(roll);
        } else {
            System.out.println(currentPlayer.name() + " is not getting out of the penalty box");
        }
    }
 
-   private static boolean canGetOutOfPenaltyBox(int roll) {
+   private static boolean playerCanGetOutOfPenaltyBox(int roll) {
       return roll % 2 != 0;
    }
 
-   private void leavePenaltyBox() {
+   private void takePlayerOutOfPenaltyBox() {
       currentPlayer.leavePenaltyBox();
       System.out.println(currentPlayer.name() + " is getting out of the penalty box");
    }
 
-   private void moveForwardAndAskQuestion(int roll) {
+   private void movePlayerForwardAndAskQuestion(int roll) {
       movePlayerForward(roll);
       askQuestion();
    }
