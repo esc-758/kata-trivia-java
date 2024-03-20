@@ -13,10 +13,10 @@ public class GameBetter implements IGame {
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
-   Deque<String> popQuestions = new LinkedList<>();
-   Deque<String> scienceQuestions = new LinkedList<>();
-   Deque<String> sportsQuestions = new LinkedList<>();
-   Deque<String> rockQuestions = new LinkedList<>();
+   Deque<Question> popQuestions = new LinkedList<>();
+   Deque<Question> scienceQuestions = new LinkedList<>();
+   Deque<Question> sportsQuestions = new LinkedList<>();
+   Deque<Question> rockQuestions = new LinkedList<>();
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
@@ -27,10 +27,10 @@ public class GameBetter implements IGame {
 
    private void initialiseQuestionDecks() {
       for (int i = 0; i < 50; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast(("Science Question " + i));
-         sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast("Rock Question " + i);
+         popQuestions.addLast(new PopQuestion("Pop Question " + i));
+         scienceQuestions.addLast(new ScienceQuestion("Science Question " + i));
+         sportsQuestions.addLast(new SportsQuestion("Sports Question " + i));
+         rockQuestions.addLast(new RockQuestion("Rock Question " + i));
       }
    }
 
@@ -104,10 +104,10 @@ public class GameBetter implements IGame {
       System.out.println("The category is " + currentCategory());
 
       switch (currentCategory()) {
-      case POP -> System.out.println(popQuestions.removeFirst());
-      case SCIENCE -> System.out.println(scienceQuestions.removeFirst());
-      case SPORTS -> System.out.println(sportsQuestions.removeFirst());
-      case ROCK -> System.out.println(rockQuestions.removeFirst());
+         case POP -> System.out.println(popQuestions.removeFirst().getText());
+         case SCIENCE -> System.out.println(scienceQuestions.removeFirst().getText());
+         case SPORTS -> System.out.println(sportsQuestions.removeFirst().getText());
+         case ROCK -> System.out.println(rockQuestions.removeFirst().getText());
       }
    }
 
@@ -174,6 +174,6 @@ public class GameBetter implements IGame {
    }
 
    private boolean didPlayerWin() {
-      return !(purses[currentPlayer] == 6);
+      return purses[currentPlayer] != 6;
    }
 }
