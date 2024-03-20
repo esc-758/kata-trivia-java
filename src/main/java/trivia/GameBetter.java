@@ -1,8 +1,6 @@
 package trivia;
 
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 
 // REFACTOR ME
@@ -13,10 +11,10 @@ public class GameBetter implements IGame {
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
-   Deque<Question> popQuestions = new LinkedList<>();
-   Deque<Question> scienceQuestions = new LinkedList<>();
-   Deque<Question> sportsQuestions = new LinkedList<>();
-   Deque<Question> rockQuestions = new LinkedList<>();
+   QuestionDeck<PopQuestion> popQuestions = new QuestionDeck<>();
+   QuestionDeck<ScienceQuestion> scienceQuestions = new QuestionDeck<>();
+   QuestionDeck<SportsQuestion> sportsQuestions = new QuestionDeck<>();
+   QuestionDeck<RockQuestion> rockQuestions = new QuestionDeck<>();
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
@@ -27,10 +25,10 @@ public class GameBetter implements IGame {
 
    private void initialiseQuestionDecks() {
       for (int i = 0; i < 50; i++) {
-         popQuestions.addLast(new PopQuestion("Pop Question " + i));
-         scienceQuestions.addLast(new ScienceQuestion("Science Question " + i));
-         sportsQuestions.addLast(new SportsQuestion("Sports Question " + i));
-         rockQuestions.addLast(new RockQuestion("Rock Question " + i));
+         popQuestions.add(new PopQuestion("Pop Question " + i));
+         scienceQuestions.add(new ScienceQuestion("Science Question " + i));
+         sportsQuestions.add(new SportsQuestion("Sports Question " + i));
+         rockQuestions.add(new RockQuestion("Rock Question " + i));
       }
    }
 
@@ -104,10 +102,10 @@ public class GameBetter implements IGame {
       System.out.println("The category is " + currentCategory());
 
       switch (currentCategory()) {
-         case POP -> System.out.println(popQuestions.removeFirst().getText());
-         case SCIENCE -> System.out.println(scienceQuestions.removeFirst().getText());
-         case SPORTS -> System.out.println(sportsQuestions.removeFirst().getText());
-         case ROCK -> System.out.println(rockQuestions.removeFirst().getText());
+         case POP -> System.out.println(popQuestions.draw().getText());
+         case SCIENCE -> System.out.println(scienceQuestions.draw().getText());
+         case SPORTS -> System.out.println(sportsQuestions.draw().getText());
+         case ROCK -> System.out.println(rockQuestions.draw().getText());
       }
    }
 
