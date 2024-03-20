@@ -8,14 +8,12 @@ public class GameBetter implements IGame {
    public static final int TOTAL_PLACES_ON_BOARD = 12;
 
    List<Player> players = new ArrayList<>();
+   Player currentPlayer;
 
    QuestionDeck<PopQuestion> popQuestions = new QuestionDeck<>();
    QuestionDeck<ScienceQuestion> scienceQuestions = new QuestionDeck<>();
    QuestionDeck<SportsQuestion> sportsQuestions = new QuestionDeck<>();
    QuestionDeck<RockQuestion> rockQuestions = new QuestionDeck<>();
-
-   Player currentPlayer;
-   boolean isGettingOutOfPenaltyBox;
 
    public GameBetter() {
       initialiseQuestionDecks();
@@ -51,27 +49,26 @@ public class GameBetter implements IGame {
       System.out.println(currentPlayer.name() + " is the current player");
       System.out.println("They have rolled a " + roll);
 
-      if (currentPlayer.isInPenaltyBox()) {
-         if (canGetOutOfPenaltyBox(roll)) {
-            leavePenaltyBox(currentPlayer.name());
-            moveForwardAndAskQuestion(roll);
-         } else {
-            stayInPenaltyBox(currentPlayer.name());
-         }
-      } else {
+      if (!currentPlayer.isInPenaltyBox()) {
          moveForwardAndAskQuestion(roll);
+         return;
       }
 
+       if (canGetOutOfPenaltyBox(roll)) {
+           leavePenaltyBox();
+           moveForwardAndAskQuestion(roll);
+       } else {
+           System.out.println(currentPlayer.name() + " is not getting out of the penalty box");
+       }
    }
 
    private static boolean canGetOutOfPenaltyBox(int roll) {
       return roll % 2 != 0;
    }
 
-   private void leavePenaltyBox(String currentPlayerName) {
-      isGettingOutOfPenaltyBox = true;
-
-      System.out.println(currentPlayerName + " is getting out of the penalty box");
+   private void leavePenaltyBox() {
+      currentPlayer.leavePenaltyBox();
+      System.out.println(currentPlayer.name() + " is getting out of the penalty box");
    }
 
    private void moveForwardAndAskQuestion(int roll) {
@@ -96,11 +93,6 @@ public class GameBetter implements IGame {
       }
    }
 
-   private void stayInPenaltyBox(String currentPlayerName) {
-      System.out.println(currentPlayerName + " is not getting out of the penalty box");
-      isGettingOutOfPenaltyBox = false;
-   }
-
    private Category currentCategory() {
       return switch (currentPlayer.place()) {
          case 0, 4, 8 -> Category.POP;
@@ -112,12 +104,8 @@ public class GameBetter implements IGame {
 
    public boolean wasCorrectlyAnswered() {
       if (currentPlayer.isInPenaltyBox()) {
-         if (isGettingOutOfPenaltyBox) {
-            return playTurn();
-         } else {
-            goToNextPlayerTurn();
-            return true;
-         }
+         goToNextPlayerTurn();
+         return true;
       }
 
       return playTurn();
